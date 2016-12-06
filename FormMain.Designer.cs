@@ -29,32 +29,13 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.ModeSwitch = new System.Windows.Forms.Button();
-            this.PowerSwitch = new System.Windows.Forms.Button();
             this.HeadlightLeft = new System.Windows.Forms.Label();
             this.HeadlightRight = new System.Windows.Forms.Label();
             this.IndicatorLight = new System.Windows.Forms.Label();
             this.Timer = new System.Windows.Forms.Timer(this.components);
+            this.labelPower = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
-            // ModeSwitch
-            // 
-            this.ModeSwitch.Location = new System.Drawing.Point(157, 349);
-            this.ModeSwitch.Name = "ModeSwitch";
-            this.ModeSwitch.Size = new System.Drawing.Size(75, 23);
-            this.ModeSwitch.TabIndex = 0;
-            this.ModeSwitch.Text = "РЕЖИМ";
-            this.ModeSwitch.UseVisualStyleBackColor = true;
-            // 
-            // PowerSwitch
-            // 
-            this.PowerSwitch.Location = new System.Drawing.Point(439, 349);
-            this.PowerSwitch.Name = "PowerSwitch";
-            this.PowerSwitch.Size = new System.Drawing.Size(75, 23);
-            this.PowerSwitch.TabIndex = 1;
-            this.PowerSwitch.Text = "ПИТАНИЕ";
-            this.PowerSwitch.UseVisualStyleBackColor = true;
-            this.PowerSwitch.Click += new System.EventHandler(this.PowerSwitch_Click);
             // 
             // HeadlightLeft
             // 
@@ -67,7 +48,7 @@
             // HeadlightRight
             // 
             this.HeadlightRight.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.HeadlightRight.Location = new System.Drawing.Point(386, 146);
+            this.HeadlightRight.Location = new System.Drawing.Point(377, 145);
             this.HeadlightRight.Name = "HeadlightRight";
             this.HeadlightRight.Size = new System.Drawing.Size(128, 16);
             this.HeadlightRight.TabIndex = 3;
@@ -75,7 +56,7 @@
             // IndicatorLight
             // 
             this.IndicatorLight.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.IndicatorLight.Location = new System.Drawing.Point(269, 349);
+            this.IndicatorLight.Location = new System.Drawing.Point(157, 361);
             this.IndicatorLight.Name = "IndicatorLight";
             this.IndicatorLight.Size = new System.Drawing.Size(16, 16);
             this.IndicatorLight.TabIndex = 4;
@@ -84,16 +65,39 @@
             // 
             this.Timer.Tick += new System.EventHandler(this.Timer_Tick);
             // 
+            // labelPower
+            // 
+            this.labelPower.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.labelPower.Location = new System.Drawing.Point(374, 360);
+            this.labelPower.Name = "labelPower";
+            this.labelPower.Size = new System.Drawing.Size(80, 16);
+            this.labelPower.TabIndex = 5;
+            this.labelPower.Text = "ПИТАНИЕ";
+            this.labelPower.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelPower.Click += new System.EventHandler(this.labelPower_Click);
+            // 
+            // label1
+            // 
+            this.label1.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.label1.Location = new System.Drawing.Point(205, 360);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(80, 16);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "РЕЖИМ";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.label1_MouseDown);
+            this.label1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.label1_MouseUp);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(671, 563);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.labelPower);
             this.Controls.Add(this.IndicatorLight);
             this.Controls.Add(this.HeadlightRight);
             this.Controls.Add(this.HeadlightLeft);
-            this.Controls.Add(this.PowerSwitch);
-            this.Controls.Add(this.ModeSwitch);
             this.Name = "FormMain";
             this.Text = "Moto Strobo Prototype";
             this.Load += new System.EventHandler(this.FormMain_Load);
@@ -102,13 +106,12 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button ModeSwitch;
-        private System.Windows.Forms.Button PowerSwitch;
         private System.Windows.Forms.Label HeadlightLeft;
         private System.Windows.Forms.Label HeadlightRight;
         private System.Windows.Forms.Label IndicatorLight;
         private System.Windows.Forms.Timer Timer;
+        private System.Windows.Forms.Label labelPower;
+        private System.Windows.Forms.Label label1;
     }
 }
 

@@ -28,10 +28,11 @@ namespace MotoStroboPrototype
         public FormMain()
         {
             InitializeComponent();
-            this.KeyPreview = true;
-            LampLeftState =      "00010001000100111111111111111111";
+            Mode = 1;
+            ModeTimer = 0;
+            LampLeftState =      "00010001000100011111111111111111";
             LampRightState =     "11111111111111110001000100010001";
-            LampIndicatorState = "00000000111100001111000000000000";
+            LampIndicatorState = "00000000000000001111000011110000";
             this.BackColor = System.Drawing.Color.Black;
             LampLeft = new Lamp(HeadlightLeft, System.Drawing.Color.White);
             LampRight = new Lamp(HeadlightRight, System.Drawing.Color.White);
@@ -45,64 +46,67 @@ namespace MotoStroboPrototype
 
         }
 
-        private void FormMain_KeyDown(object sender, KeyEventArgs e)
+        private void labelPower_Click(object sender, EventArgs e)
         {
-            throw new Exception();
-            if (e.KeyCode == Keys.M)
-            {
-                ModeButtonIsDown = true;
-            }
+            SwitchPower();
         }
 
-        private void FormMain_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.M)
-            {
-                ModeButtonIsDown = false;
-                throw new Exception();
-
-            }
-        }
-
-        private void PowerSwitch_Click(object sender, EventArgs e)
-        {
-            PowerSwitchClick();
-        }
-
-
-        private void PowerSwitchClick()
+        private void SwitchPower()
         {
             PowerIsOn = !PowerIsOn;
             if (PowerIsOn)
             {
                 LampLeft.TurnOn();
                 LampRight.TurnOn();
-                LampIndicator.TurnOn();
-                Mode = 2;
-                StatePos = 1;
+                LampIndicator.TurnOff();
+                Mode = 1;
             }
             else
             {
+                Timer.Stop();
                 LampLeft.TurnOff();
                 LampRight.TurnOff();
                 LampIndicator.TurnOff();
             }
-            Timer.Enabled = PowerIsOn;
         }
 
-        private void ModeSwitchDown()
+        private void label1_MouseDown(object sender, MouseEventArgs e)
         {
-            if (ModeTimer == 0)
+            if (PowerIsOn &&  Mode == 1)
+            {
+                ModeTimer = 16;
+                SwitchMode();
+            }
+        }
+
+        private void label1_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (PowerIsOn && ModeTimer == 0)
+            {
+                SwitchMode();
+            }
+        }
+
+        private void SwitchMode()
+        {
+            if (Mode == 1)
             {
                 Mode = 2;
+                StatePos = 1;
+                Timer.Start();
             }
-
+            else
+            {
+                Timer.Stop();
+                Mode = 1;
+                LampLeft.TurnOn();
+                LampRight.TurnOn();
+                LampIndicator.TurnOff();
+            }
         }
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-
-            ModeSwitch.Visible = ModeButtonIsDown;
 
             char leftState = LampLeftState[StatePos - 1];
             if (leftState == '0')
@@ -126,7 +130,10 @@ namespace MotoStroboPrototype
                 { StatePos++; }
             else
                 { StatePos = 1; }
+            if (ModeTimer > 0)
+                ModeTimer--;
 
         }
+
     }
 }
